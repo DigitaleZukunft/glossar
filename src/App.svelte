@@ -8,7 +8,7 @@ for(let i=0;i<searchColumns.length;i++) {singleQueries.push("");}
 
 async function loadData()
 {
-	data = await d3.csv("../data/glossary.csv");
+	data = await d3.csv("data/glossary.csv");
 	filteredData = data;
 }
 
