@@ -2,7 +2,11 @@
 let data = []
 let filteredData = []
 let searchQuery = "";
-let searchColumns = ["bezeichnung","synonyme","definition","begriffsklasse"];
+const searchColumns = ["bezeichnung","synonyme","definition","begriffsklasse"];
+const labels = ["Bezeichnung","Synonyme","Definition","Begriffskl."];
+const placeholders = labels.map(c => "Suche in "+ c);
+//const placeholders = searchColumns.map(([firstLetter, ...restOfWord]) => "Suche in "+ firstLetter.toUpperCase() + restOfWord.join(''));
+
 let singleQueries = [];
 for(let i=0;i<searchColumns.length;i++) {singleQueries.push("");}
 
@@ -27,6 +31,7 @@ $:
 </script>
 
 <main>
+
 	<h1>Glossar</h1>
 	Suche: <input bind:value={searchQuery}/>
 	<table style="width:100%" aria-label="Glossareinträge">
@@ -38,11 +43,11 @@ $:
 		<th>Begriffsklasse</th>
 		<tbody>
 			<tr>
-				<td><input class="singleSearch" bind:value={singleQueries[0]}/></td>
+				<td><input class="singleSearch" bind:value={singleQueries[0]} placeholder={placeholders[0]}/></td>
 				<!--<td></td>-->
 				<td></td>
-				<td><input class="singleSearch" bind:value={singleQueries[2]}/></td>
-				<td><input class="singleSearch" bind:value={singleQueries[3]}/></td>
+				<td><input class="singleSearch" bind:value={singleQueries[2]} placeholder={placeholders[2]}/></td>
+				<td><input class="singleSearch" bind:value={singleQueries[3]} placeholder={placeholders[3]}/></td>
 			</tr>
 
 			{#each filteredData as row}
