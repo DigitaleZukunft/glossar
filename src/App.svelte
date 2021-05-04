@@ -74,9 +74,10 @@ $:
 
 			{#each filteredData as row}
 			<tr>
-				<td>{row.bezeichnung}
-					{#if row.synonyme}
-					{" / " + row.synonyme.replace("|"," / ")}
+				<td>{row.bezeichnung}{#if row.synonyme}
+					<i>
+						{", " + row.synonyme.replace("|",", ")}
+					</i>
 					{/if}
 				</td>
 				<td>
