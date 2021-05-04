@@ -5,8 +5,8 @@ let fuse = null;
 let searchQuery = "";
 
 const searchColumns = ["bezeichnung","synonyme","beschreibung","begriffsklasse"];
-const labels = ["Bezeichnung","Synonyme","Beschreibung","Begriffskl."];
-const placeholders = labels.map(c => "Suche in "+ c);
+const labels = ["Bezeichnung","Synonyme","Beschreibung","Begriffsklasse"];
+const placeholders = labels.map(c => "🔍 ");
 //const placeholders = searchColumns.map(([firstLetter, ...restOfWord]) => "Suche in "+ firstLetter.toUpperCase() + restOfWord.join(''));
 
 let singleQueries = [];
@@ -56,7 +56,7 @@ $:
 
 <main>
 	<h1>DZKH-Glossar</h1>
-	Suche: <input type="search" style="width:80%" tabindex="0" autofocus bind:value={searchQuery}/>
+	<input type="search" placeholder="🔍" style="width:80%;min-width:20em;" tabindex="0" autofocus bind:value={searchQuery}/>
 	<table style="width:100%" aria-label="Glossareinträge">
 		<th>Bezeichnung</th>
 		<th></th>
@@ -109,30 +109,6 @@ $:
 </main>
 
 <style>
-tr:nth-child(even) {background: #EEE}
-
-td {padding-top:0.3em;padding-bottom:0.3em;}
-
-main {
-	text-align: center;
-	padding: 1em;
-	max-width: 240px;
-	margin: 0 auto;
-}
-
-h1 {
-	color: #ff3e00;
-	text-transform: uppercase;
-	font-size: 4em;
-	font-weight: 100;
-}
-
-@media (min-width: 640px) {
-	main {
-		max-width: none;
-	}
-}
-
 .singleSearch {width:100%;}
 
 .icon {width: 1.5em;}
