@@ -2,8 +2,8 @@
 let data = []
 let filteredData = []
 let searchQuery = "";
-const searchColumns = ["bezeichnung","synonyme","definition","begriffsklasse"];
-const labels = ["Bezeichnung","Synonyme","Definition","Begriffskl."];
+const searchColumns = ["bezeichnung","synonyme","beschreibung","begriffsklasse"];
+const labels = ["Bezeichnung","Synonyme","Beschreibung","Begriffskl."];
 const placeholders = labels.map(c => "Suche in "+ c);
 //const placeholders = searchColumns.map(([firstLetter, ...restOfWord]) => "Suche in "+ firstLetter.toUpperCase() + restOfWord.join(''));
 
@@ -13,6 +13,7 @@ for(let i=0;i<searchColumns.length;i++) {singleQueries.push("");}
 async function loadData()
 {
 	data = await d3.csv("data/glossary.csv");
+	data.sort((a, b) => a.bezeichnung > b.bezeichnung ? 1 : -1);
 	filteredData = data;
 }
 
@@ -21,7 +22,7 @@ loadData();
 $: console.log(searchQuery);
 $:
 {
-	filteredData = data.filter(item  => (item.bezeichnung+item.synonyme+item.definition+item.begriffsklasse).toLowerCase().includes(searchQuery.toLowerCase()));
+	filteredData = data.filter(item  => (item.bezeichnung+item.synonyme+item.beschreibung+item.begriffsklasse).toLowerCase().includes(searchQuery.toLowerCase()));
 	for(let i=0;i<searchColumns.length;i++)
 	{
 		filteredData = filteredData.filter(item  => (item[searchColumns[i]]).toLowerCase().includes(singleQueries[i].toLowerCase()));
@@ -38,7 +39,7 @@ $:
 		<th>Bezeichnung</th>
 		<th></th>
 		<!--<th>Synonyme</th>-->
-		<th>Definition</th>
+		<th>Beschreibung</th>
 		<!--<th>Quelle</th>-->
 		<th>Begriffsklasse</th>
 		<tbody>
@@ -64,7 +65,7 @@ $:
 					{/if}
 				</td>
 				<!--<td>{row.synonyme}</td>-->
-				<td class="td-def">{row.definition}</td>
+				<td class="td-def">{row.beschreibung}</td>
 				<!--<td class="td-src">{row.quelle}</td>-->
 				<td>{row.begriffsklasse}</td>
 			</tr>
@@ -75,6 +76,8 @@ $:
 
 <style>
 tr:nth-child(even) {background: #EEE}
+
+td {padding-top:0.3em;padding-bottom:0.3em;}
 
 main {
 	text-align: center;
