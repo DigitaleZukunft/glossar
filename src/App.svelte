@@ -1,7 +1,9 @@
 <script>
 let data = []
 let filteredData = []
+let fuse = null;
 let searchQuery = "";
+
 const searchColumns = ["bezeichnung","synonyme","beschreibung","begriffsklasse"];
 const labels = ["Bezeichnung","Synonyme","Beschreibung","Begriffskl."];
 const placeholders = labels.map(c => "Suche in "+ c);
@@ -10,31 +12,51 @@ const placeholders = labels.map(c => "Suche in "+ c);
 let singleQueries = [];
 for(let i=0;i<searchColumns.length;i++) {singleQueries.push("");}
 
+const options = {
+	minMatchCharLength: 1,
+	threshold: 0.2,
+	useExtendedSearch: true,
+	ignoreLocation: true,
+	keys: [
+		"bezeichnung",
+		"synonyme",
+		"beschreibung",
+		"begriffsklasse"
+	]
+};
+
 async function loadData()
 {
 	data = await d3.csv("data/glossary.csv");
 	data.sort((a, b) => a.bezeichnung > b.bezeichnung ? 1 : -1);
+	fuse = new Fuse(data,options);
 	filteredData = data;
 }
 
 loadData();
 
-$: console.log(searchQuery);
 $:
 {
-	filteredData = data.filter(item  => (item.bezeichnung+item.synonyme+item.beschreibung+item.begriffsklasse).toLowerCase().includes(searchQuery.toLowerCase()));
+	//filteredData = data.filter(item  => (item.bezeichnung+item.synonyme+item.beschreibung+item.begriffsklasse).toLowerCase().includes(searchQuery.toLowerCase()));
+
+	if(fuse&&searchQuery)
+	{
+		filteredData = fuse.search(searchQuery).map(x=>x.item);
+	}
+	else {filteredData = data;}
+
 	for(let i=0;i<searchColumns.length;i++)
 	{
 		filteredData = filteredData.filter(item  => (item[searchColumns[i]]).toLowerCase().includes(singleQueries[i].toLowerCase()));
 	}
+
 }
 
 </script>
 
 <main>
-
 	<h1>DZKH-Glossar</h1>
-	Suche: <input bind:value={searchQuery}/>
+	Suche: <input type="search" style="width:80%" tabindex="0" autofocus bind:value={searchQuery}/>
 	<table style="width:100%" aria-label="Glossareinträge">
 		<th>Bezeichnung</th>
 		<th></th>
@@ -44,11 +66,10 @@ $:
 		<th>Begriffsklasse</th>
 		<tbody>
 			<tr>
-				<td><input class="singleSearch" bind:value={singleQueries[0]} placeholder={placeholders[0]}/></td>
-				<!--<td></td>-->
+				<td><input type="search" class="singleSearch" bind:value={singleQueries[0]} placeholder={placeholders[0]}/></td>
 				<td></td>
-				<td><input class="singleSearch" bind:value={singleQueries[2]} placeholder={placeholders[2]}/></td>
-				<td><input class="singleSearch" bind:value={singleQueries[3]} placeholder={placeholders[3]}/></td>
+				<td><input type="search" class="singleSearch" bind:value={singleQueries[2]} placeholder={placeholders[2]}/></td>
+				<td><input type="search" class="singleSearch" list="begriffsklassen" bind:value={singleQueries[3]} placeholder={placeholders[3]}/></td>
 			</tr>
 
 			{#each filteredData as row}
@@ -72,6 +93,19 @@ $:
 			{/each}
 		</tbody>
 	</table>
+
+	<datalist id="begriffsklassen">
+		<option value="Aufgabe"/>
+		<option value="Anwendungssystem"/>
+		<option value="Datenobjekt"/>
+		<option value="Physisches Datenverarbeitungssystem"/>
+		<option value="Organisationseinheit"/>
+		<option value="Standard"/>
+		<option value="Technologisches Themengebiet"/>
+		<option value="Qualitätskriterium"/>
+		<option value="Sonstiges"/>
+	</datalist>
+
 </main>
 
 <style>
