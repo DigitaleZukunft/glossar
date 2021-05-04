@@ -1,4 +1,5 @@
 <script>
+import { onMount } from 'svelte';
 let data = []
 let filteredData = []
 let fuse = null;
@@ -36,6 +37,7 @@ async function loadData()
 loadData();
 
 $:
+if(data.length>0)
 {
 	//filteredData = data.filter(item  => (item.bezeichnung+item.synonyme+item.beschreibung+item.begriffsklasse).toLowerCase().includes(searchQuery.toLowerCase()));
 
@@ -47,7 +49,12 @@ $:
 
 	for(let i=0;i<searchColumns.length;i++)
 	{
-		filteredData = filteredData.filter(item  => (item[searchColumns[i]]).toLowerCase().includes(singleQueries[i].toLowerCase()));
+		const query = singleQueries[i];
+		filteredData = filteredData.filter(item  => (item[searchColumns[i]]).toLowerCase().includes(query.toLowerCase()));
+		if(query.length>2)
+		{
+			mark.mark(query);
+		}
 	}
 
 }
@@ -92,6 +99,7 @@ $:
 				<td>{row.begriffsklasse}</td>
 			</tr>
 			{/each}
+			{initMark()}
 		</tbody>
 	</table>
 
