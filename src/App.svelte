@@ -41,19 +41,25 @@ if(data.length>0)
 {
 	//filteredData = data.filter(item  => (item.bezeichnung+item.synonyme+item.beschreibung+item.begriffsklasse).toLowerCase().includes(searchQuery.toLowerCase()));
 
-	if(mark) {mark.unmark();}
-	const tds = document.querySelectorAll("td");
-	mark = new Mark(tds);
 	if(fuse&&searchQuery)
 	{
-		filteredData = fuse.search(searchQuery).map(x=>x.item);
+		// we can also use fuse search result items as filtered data but that bugged out the table view
+		const hits = new Set(fuse.search(searchQuery).map(x=>x.item.bezeichnung));
+		filteredData = data.filter(row=>hits.has(row.bezeichnung));
+		/* temporarily disable highlighting due to display bugs (test with prozessebene -> prozesseben -> prozessebene)
+		console.log(filteredData);
+		if(mark) {mark.unmark();}
+		const tds = document.querySelectorAll("tr");
+		mark = new Mark(tds);
 		mark.mark(searchQuery);
+		*/
 	}
 	else {filteredData = data;}
 
 	for(let i=0;i<searchColumns.length;i++)
 	{
 		const query = singleQueries[i];
+		if(!query) {continue;}
 		filteredData = filteredData.filter(item  => (item[searchColumns[i]]).toLowerCase().includes(query.toLowerCase()));
 	}
 
@@ -63,6 +69,7 @@ if(data.length>0)
 
 <main>
 	<h1>DZKH-Glossar</h1>
+	<!-- svelte-ignore a11y-autofocus -->
 	<input type="search" placeholder="🔍" style="width:80%;min-width:20em;" tabindex="0" autofocus bind:value={searchQuery}/>
 	<table style="width:100%" aria-label="Glossareinträge">
 		<th>Bezeichnung</th>
@@ -81,9 +88,10 @@ if(data.length>0)
 
 			{#each filteredData as row}
 			<tr>
-				<td>{row.bezeichnung}{#if row.synonyme && !row.bezeichnung.includes(",")} <!-- prevent multiple additions -->
+				<td>{row.bezeichnung}{#if row.synonyme}
+					<br>
 					<i>
-						{", " + row.synonyme.replace("|",", ")}
+					{"(" + row.synonyme.replace(";",", ")+")"}
 					</i>
 					{/if}
 				</td>
