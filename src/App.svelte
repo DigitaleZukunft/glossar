@@ -32,7 +32,7 @@ $:
 
 <main>
 
-	<h1>Glossar</h1>
+	<h1>DZKH-Glossar</h1>
 	Suche: <input bind:value={searchQuery}/>
 	<table style="width:100%" aria-label="Glossareinträge">
 		<th>Bezeichnung</th>
