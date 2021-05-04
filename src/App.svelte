@@ -4,7 +4,7 @@ let data = []
 let filteredData = []
 let fuse = null;
 let searchQuery = "";
-
+let mark = null;
 const searchColumns = ["bezeichnung","synonyme","beschreibung","begriffsklasse"];
 const labels = ["Bezeichnung","Synonyme","Beschreibung","Begriffsklasse"];
 const placeholders = labels.map(c => "🔍 ");
@@ -41,9 +41,13 @@ if(data.length>0)
 {
 	//filteredData = data.filter(item  => (item.bezeichnung+item.synonyme+item.beschreibung+item.begriffsklasse).toLowerCase().includes(searchQuery.toLowerCase()));
 
+	if(mark) {mark.unmark();}
+	const tds = document.querySelectorAll("td");
+	mark = new Mark(tds);
 	if(fuse&&searchQuery)
 	{
 		filteredData = fuse.search(searchQuery).map(x=>x.item);
+		mark.mark(searchQuery);
 	}
 	else {filteredData = data;}
 
@@ -51,10 +55,6 @@ if(data.length>0)
 	{
 		const query = singleQueries[i];
 		filteredData = filteredData.filter(item  => (item[searchColumns[i]]).toLowerCase().includes(query.toLowerCase()));
-		if(query.length>2)
-		{
-			mark.mark(query);
-		}
 	}
 
 }
@@ -81,7 +81,7 @@ if(data.length>0)
 
 			{#each filteredData as row}
 			<tr>
-				<td>{row.bezeichnung}{#if row.synonyme}
+				<td>{row.bezeichnung}{#if row.synonyme && !row.bezeichnung.includes(",")} <!-- prevent multiple additions -->
 					<i>
 						{", " + row.synonyme.replace("|",", ")}
 					</i>
@@ -99,7 +99,6 @@ if(data.length>0)
 				<td>{row.begriffsklasse}</td>
 			</tr>
 			{/each}
-			{initMark()}
 		</tbody>
 	</table>
 
