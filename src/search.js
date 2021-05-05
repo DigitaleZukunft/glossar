@@ -46,18 +46,19 @@ export default class Search
     return filteredData;
   }
 
+ /** Not needed right now because the data size is small enough but might be useful later. Still needs to be tested.*/
   throttledSearch(query)
   {
     // throttle searches to not overload the CPU
     const start = new Date().getTime();
-    lastSearchTaskStart = start;
-    if(lastSearchDuration>100&&(start-lastSearchStart<lastSearchDuration*4))
+    this.lastSearchTaskStart = start;
+    if(lastSearchDuration>100&&(start-this.lastSearchStart<this.lastSearchDuration*4))
     {
       setTimeout(() =>
       {
         // do we still need the search?
-        if(lastSearchTaskStart===start) {search(query);}
-      }, lastSearchDuration*4);
+        if(this.lastSearchTaskStart===start) {search(query);}
+      }, this.lastSearchDuration*4);
     } else
     {
       search(query);
