@@ -105,4 +105,6 @@ if(data.length>0&&search)
 .td-def {text-align:left;}
 /*.td-src {word-break: break-word;}
 .td-wiki {word-break: break-word;max-width:50%;min-width:10em;}*/
+
+:global(mark) {font-weight: bold; background-color: initial;}
 </style>
