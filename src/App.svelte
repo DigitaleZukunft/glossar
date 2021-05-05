@@ -1,10 +1,11 @@
 <script>
 import { onMount } from 'svelte';
+import Search from './search.js';
 let data = []
 let filteredData = []
-let fuse = null;
 let searchQuery = "";
-let mark = null;
+let search = null;
+
 const searchColumns = ["bezeichnung","synonyme","beschreibung","begriffsklasse"];
 const labels = ["Bezeichnung","Synonyme","Beschreibung","Begriffsklasse"];
 const placeholders = labels.map(c => "🔍 ");
@@ -13,48 +14,21 @@ const placeholders = labels.map(c => "🔍 ");
 let singleQueries = [];
 for(let i=0;i<searchColumns.length;i++) {singleQueries.push("");}
 
-const options = {
-	minMatchCharLength: 1,
-	threshold: 0.2,
-	useExtendedSearch: true,
-	ignoreLocation: true,
-	keys: [
-		"bezeichnung",
-		"synonyme",
-		"beschreibung",
-		"begriffsklasse"
-	]
-};
-
 async function loadData()
 {
 	data = await d3.csv("data/glossary.csv");
 	data.sort((a, b) => a.bezeichnung > b.bezeichnung ? 1 : -1);
-	fuse = new Fuse(data,options);
 	filteredData = data;
+	search = new Search(data);
 }
 
 loadData();
 
 $:
-if(data.length>0)
+if(data.length>0&&search)
 {
-	//filteredData = data.filter(item  => (item.bezeichnung+item.synonyme+item.beschreibung+item.begriffsklasse).toLowerCase().includes(searchQuery.toLowerCase()));
-
-	if(fuse&&searchQuery)
-	{
-		// we can also use fuse search result items as filtered data but that bugged out the table view
-		const hits = new Set(fuse.search(searchQuery).map(x=>x.item.bezeichnung));
-		filteredData = data.filter(row=>hits.has(row.bezeichnung));
-		/* temporarily disable highlighting due to display bugs (test with prozessebene -> prozesseben -> prozessebene)
-		console.log(filteredData);
-		if(mark) {mark.unmark();}
-		const tds = document.querySelectorAll("tr");
-		mark = new Mark(tds);
-		mark.mark(searchQuery);
-		*/
-	}
-	else {filteredData = data;}
+	filteredData = search.search(searchQuery);
+	search.highlight(searchQuery);
 
 	for(let i=0;i<searchColumns.length;i++)
 	{
@@ -91,7 +65,7 @@ if(data.length>0)
 				<td>{row.bezeichnung}{#if row.synonyme}
 					<br>
 					<i>
-					{"(" + row.synonyme.replace(";",", ")+")"}
+						{"(" + row.synonyme.replace(";",", ")+")"}
 					</i>
 					{/if}
 				</td>
