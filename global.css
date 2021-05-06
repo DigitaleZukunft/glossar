@@ -87,3 +87,8 @@ h1 {
 }
 
 p,li {text-align: left;}
+
+a:focus, a:hover {
+ outline: 0.2em solid darkblue;
+
+ }
