@@ -8,7 +8,7 @@ let search = null;
 
 const searchColumns = ["bezeichnung","synonyme","beschreibung","begriffsklasse"];
 const labels = ["Bezeichnung","Synonyme","Beschreibung","Begriffsklasse"];
-const placeholders = labels.map(c => "🔍 ");
+const placeholders = labels.map(c => "🔍");
 //const placeholders = searchColumns.map(([firstLetter, ...restOfWord]) => "Suche in "+ firstLetter.toUpperCase() + restOfWord.join(''));
 
 let singleQueries = [];
@@ -54,10 +54,13 @@ if(data.length>0&&search)
 		<th>Begriffsklasse</th>
 		<tbody>
 			<tr>
-				<td><input type="search" class="singleSearch" bind:value={singleQueries[0]} placeholder={placeholders[0]}/></td>
+				<td><input type="search" class="singleSearch" bind:value={singleQueries[0]} placeholder={placeholders[0]} aria-label="Suchanfrage nach {labels[0]}"/></td>
+
 				<td></td>
-				<td><input type="search" class="singleSearch" bind:value={singleQueries[2]} placeholder={placeholders[2]}/></td>
-				<td><input type="search" class="singleSearch" list="begriffsklassen" bind:value={singleQueries[3]} placeholder={placeholders[3]}/></td>
+				<td><input type="search" class="singleSearch" bind:value={singleQueries[2]} placeholder={placeholders[2]} aria-label="Suchanfrage nach {labels[2]}"/></td>
+
+				<td><input type="search" class="singleSearch" list="begriffsklassen" bind:value={singleQueries[3]} placeholder={placeholders[3]} aria-label="Suchanfrage nach {labels[3]}"/></td>
+
 			</tr>
 
 			{#each filteredData as row}
@@ -72,7 +75,7 @@ if(data.length>0&&search)
 				<td>
 					{#if row.wikipedia}
 					<!--row.wikipedia.replace("https://de.wikipedia.org/wiki/","");}-->
-					<a href="{row.wikipedia}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Wikipedia%27s_W_%28Linux_Libertine_mucked_with%29.svg" class="icon" alt="Wikipedia Article"></a>
+					<a style="display:block;" href="{row.wikipedia}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Wikipedia%27s_W_%28Linux_Libertine_mucked_with%29.svg" class="icon" alt="Wikipedia Article"></a>
 					{/if}
 				</td>
 				<!--<td>{row.synonyme}</td>-->
