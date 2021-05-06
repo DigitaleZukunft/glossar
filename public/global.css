@@ -69,7 +69,6 @@ td {padding-top:0.3em;padding-bottom:0.3em;}
 main {
 	text-align: center;
 	padding: 1em;
-	max-width: 240px;
 	margin: 0 auto;
 }
 
@@ -80,15 +79,26 @@ h1 {
 	font-weight: 100;
 }
 
-@media (min-width: 640px) {
+@media (max-width: 80em) {
 	main {
-		max-width: none;
+		padding: 0;
+	}
+	body {padding: 0;}
+	h1 {font-size: 3em;}
+}
+
+@media (max-width: 80em) {
+	h1
+	{
+		font-size: 1.8em;
+		text-align:left;
+		margin-left:0.3em;
 	}
 }
 
 p,li {text-align: left;}
 
 a:focus, a:hover {
- outline: 0.2em solid darkblue;
+	outline: 0.2em solid darkblue;
 
- }
+}
