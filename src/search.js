@@ -20,7 +20,6 @@ export default class Search
 					[dataSource.primaryKey]: item[dataSource.primaryKey],
 				}));
 			options.keys=["merged"];
-			console.log(searchData);
 			this.fuse = new Fuse(searchData,options);
 			return;
 		}

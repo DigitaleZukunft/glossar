@@ -1,6 +1,6 @@
 <script>
 import Search from './search.js';
-import dataSource from './dzkh.js';
+import dataSource from './snik.js';
 import debounce from 'lodash/debounce';
 let data = [];
 let filteredData = [];
@@ -58,24 +58,10 @@ if(data.length>0&&search)
 				{#each dataSource.columns as column}
 				<td>{row[column.id]}</td>
 				{/each}
-				<!--
-				<td>{row.bezeichnung}{#if row.synonyme}
-					<br>
-					<i>
-						{"(" + row.synonyme.replace(";",", ")+")"}
-					</i>
-					{/if}
-				</td>
-				<td>
+				{#each dataSource.computedColumns as cc}
+				<td>{@html cc.html(row)}</td>
+				{/each}
 
-					{#if row.wikipedia}
-					<a style="display:block;" href="{row.wikipedia}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Wikipedia%27s_W_%28Linux_Libertine_mucked_with%29.svg" class="icon" alt="Wikipedia Article"></a>
-					{/if}
-				</td>
-
-				<td class="td-def">{row.beschreibung}</td>
-				<td>{row.begriffsklasse}</td>
-												-->
 			</tr>
 			{/each}
 		</tbody>

@@ -32,4 +32,13 @@ export default
 			label: "Typ",
 		},
 	],
+	computedColumns:
+	[
+		{
+			html: row => `<a href="${row.uri}" target="_blank">View</a>`,
+		},
+		{
+			html: row => `<a href="https://www.snik.eu/graph/?class=${row.uri}" target="_blank">Graph</a>`,
+		},
+	],
 };
