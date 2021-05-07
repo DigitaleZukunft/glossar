@@ -1,10 +1,9 @@
 <script>
 import Search from './search.js';
-import dataSource from './snik.js';
+import dataSource from './dzkh.js';
 import debounce from 'lodash/debounce';
 let data = [];
 let filteredData = [];
-const searchQuery = "";
 let search = null;
 
 const singleQueries = [];
@@ -15,7 +14,7 @@ async function loadData()
 	data = await d3.csv(dataSource.csv);
 	data.sort((a, b) => a[dataSource.sortKey] > b[dataSource.sortKey] ? 1 : -1);
 	filteredData = data;
-	search = new Search(data,dataSource);
+	search = new Search(data,dataSource,true);
 }
 
 loadData();
@@ -23,11 +22,12 @@ loadData();
 let debouncedSearchQuery = "";
 
 const handleInput = debounce(e=> {debouncedSearchQuery = e.target.value;}, 100);
+
 $:
 if(data.length>0&&search)
 {
 	filteredData = search.search(debouncedSearchQuery);
-	search.highlight(debouncedSearchQuery);
+	//search.highlight(debouncedSearchQuery);
 
 	for(const column of dataSource.columns)
 	{

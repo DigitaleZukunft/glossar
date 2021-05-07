@@ -1,24 +1,31 @@
 
 const options = {
 	minMatchCharLength: 2,
-	threshold: 0.2,
-	useExtendedSearch: true,
+	threshold: 0.35,
+	useExtendedSearch: false,
 	ignoreLocation: true,
 };
 
 export default class Search
 {
-	constructor(data,dataSource)
+	constructor(data,dataSource,merge)
 	{
 		this.data=data;
 		this.dataSource=dataSource;
-		options.keys = dataSource.searchKeys;
-		this.fuse = new Fuse(data,options);
-		this.initialized = true;
-		this.lastSearchStart=new Date().getTime();
-		this.lastSearchTaskStart=new Date().getTime();
-		this.lastSearchDuration=0;
-		//this.search=this.search.bind(this);
+		if (merge)
+		{
+			// workaround to search in multiple fields at the same time, see https://github.com/krisk/Fuse/issues/235
+			const searchData = data.map(item=>
+				({"merged":dataSource.searchKeys.map(key=>item[key]).join(" "),
+					[dataSource.primaryKey]: item[dataSource.primaryKey],
+				}));
+			options.keys=["merged"];
+			console.log(searchData);
+			this.fuse = new Fuse(searchData,options);
+			return;
+		}
+		else {options.keys = dataSource.searchKeys;}
+		this.fuse = new Fuse(this.data,options);
 	}
 
 	async highlight(query)
@@ -32,33 +39,9 @@ export default class Search
 	search(query)
 	{
 		if(!query||query.length<2) {return this.data;}
-		const start = new Date().getTime();
-		this.lastSearchStart=start;
 		const items = this.fuse.search(query).map(x=>x.item[this.dataSource.primaryKey]);
 		const hits = new Set(items);
 		const filteredData = this.data.filter(row=>hits.has(row[this.dataSource.primaryKey]));
-		const end = new Date().getTime();
-		this.lastSearchDuration=end-start;
 		return filteredData;
-	}
-
-	/** Not needed right now because the data size is small enough but might be useful later. Still needs to be tested.*/
-	throttledSearch(query)
-	{
-		// throttle searches to not overload the CPU
-		const start = new Date().getTime();
-		this.lastSearchTaskStart = start;
-		if(this.lastSearchDuration>100&&(start-this.lastSearchStart<this.lastSearchDuration*4))
-		{
-			setTimeout(() =>
-			{
-				// do we still need the search?
-				if(this.lastSearchTaskStart===start) {this.search(query);}
-			}, this.lastSearchDuration*4);
-		}
-		else
-		{
-			this.search(query);
-		}
 	}
 }
