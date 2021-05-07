@@ -1,6 +1,6 @@
 <script>
 import Search from './search.js';
-import dataSource from './dzkh.js';
+import dataSource from './snik.js';
 let data = [];
 let filteredData = [];
 let searchQuery = "";
@@ -11,7 +11,7 @@ for(let i=0;i<dataSource.columns.length;i++) {singleQueries.push("");}
 
 async function loadData()
 {
-	data = await d3.csv(dataSource.csvFile);
+	data = await d3.csv(dataSource.csv);
 	data.sort((a, b) => a[dataSource.sortKey] > b[dataSource.sortKey] ? 1 : -1);
 	filteredData = data;
 	search = new Search(data,dataSource);
@@ -35,7 +35,7 @@ if(data.length>0&&search)
 </script>
 
 <main>
-	<h1>DZKH-Glossar</h1>
+	<h1>{dataSource.title}</h1>
 	<!-- svelte-ignore a11y-autofocus -->
 	<input type="search" placeholder="🔍" style="width:80%;min-width:20em;" tabindex="0" autofocus bind:value={searchQuery}/>
 	<table style="width:100%" aria-label="Glossareinträge">

@@ -1,10 +1,10 @@
 export default
 {
-	title: "SNIK-GLOSSAR",
+	title: "DZKH-GLOSSAR",
 	primaryKey: "bezeichnung",
 	sortKey: "bezeichnung",
 	searchKeys: ["bezeichnung","synonyme","beschreibung","begriffsklasse"],
-	csvFile: "data/glossary.csv",
+	csv: "data/glossary.csv",
 	columns:
 	[
 		{
