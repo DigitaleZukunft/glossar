@@ -48,17 +48,17 @@ export default class Search
 		// throttle searches to not overload the CPU
 		const start = new Date().getTime();
 		this.lastSearchTaskStart = start;
-		if(lastSearchDuration>100&&(start-this.lastSearchStart<this.lastSearchDuration*4))
+		if(this.lastSearchDuration>100&&(start-this.lastSearchStart<this.lastSearchDuration*4))
 		{
 			setTimeout(() =>
 			{
 				// do we still need the search?
-				if(this.lastSearchTaskStart===start) {search(query);}
+				if(this.lastSearchTaskStart===start) {this.search(query);}
 			}, this.lastSearchDuration*4);
 		}
 		else
 		{
-			search(query);
+			this.search(query);
 		}
 	}
 }

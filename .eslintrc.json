@@ -17,7 +17,9 @@
 	},
 	"globals":
 	{
-		"Fuse": true
+		"Fuse": true,
+		"Mark": true,
+		"d3": true
 	},
 	"extends":
 	[
@@ -75,6 +77,6 @@
 				}
 			}
 		],
-		"valid-jsdoc": "warn"
+		"valid-jsdoc": "off"
 	}
 }

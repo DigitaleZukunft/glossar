@@ -1,13 +1,12 @@
 <script>
-import { onMount } from 'svelte';
 import Search from './search.js';
 import dataSource from './dzkh.js';
-let data = []
-let filteredData = []
+let data = [];
+let filteredData = [];
 let searchQuery = "";
 let search = null;
 
-let singleQueries = [];
+const singleQueries = [];
 for(let i=0;i<dataSource.columns.length;i++) {singleQueries.push("");}
 
 async function loadData()
@@ -95,9 +94,10 @@ if(data.length>0&&search)
 <style>
 .singleSearch {width:100%;}
 
+/*.
 .icon {width: 1.5em;}
 .td-def {text-align:left;}
-/*.td-src {word-break: break-word;}
+d-src {word-break: break-word;}
 .td-wiki {word-break: break-word;max-width:50%;min-width:10em;}*/
 
 :global(mark) {font-weight: bold; background-color: initial;}

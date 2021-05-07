@@ -6,18 +6,18 @@ export default
 	searchKeys: ["bezeichnung","synonyme","beschreibung","begriffsklasse"],
 	csvFile: "data/glossary.csv",
 	columns:
-  [
-  	{
-  		id: "bezeichnung",
-  		label: "Bezeichnung",
-  	},
-  	{
-  		id: "beschreibung",
-  		label: "Beschreibung",
-  	},
-  	{
-  		id: "begriffsklasse",
-  		label: "Begriffsklasse",
-  	},
-  ],
+	[
+		{
+			id: "bezeichnung",
+			label: "Bezeichnung",
+		},
+		{
+			id: "beschreibung",
+			label: "Beschreibung",
+		},
+		{
+			id: "begriffsklasse",
+			label: "Begriffsklasse",
+		},
+	],
 };
