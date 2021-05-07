@@ -1,9 +1,10 @@
 <script>
 import Search from './search.js';
 import dataSource from './snik.js';
+import debounce from 'lodash/debounce';
 let data = [];
 let filteredData = [];
-let searchQuery = "";
+const searchQuery = "";
 let search = null;
 
 const singleQueries = [];
@@ -19,11 +20,14 @@ async function loadData()
 
 loadData();
 
+let debouncedSearchQuery = "";
+
+const handleInput = debounce(e=> {debouncedSearchQuery = e.target.value;}, 100);
 $:
 if(data.length>0&&search)
 {
-	filteredData = search.search(searchQuery);
-	search.highlight(searchQuery);
+	filteredData = search.search(debouncedSearchQuery);
+	search.highlight(debouncedSearchQuery);
 
 	for(const column of dataSource.columns)
 	{
@@ -37,7 +41,7 @@ if(data.length>0&&search)
 <main>
 	<h1>{dataSource.title}</h1>
 	<!-- svelte-ignore a11y-autofocus -->
-	<input type="search" placeholder="🔍" style="width:80%;min-width:20em;" tabindex="0" autofocus bind:value={searchQuery}/>
+	<input type="search" placeholder="🔍" style="width:80%;min-width:20em;" tabindex="0" autofocus on:input={handleInput}/>
 	<table style="width:100%" aria-label="Glossareinträge">
 		{#each dataSource.columns as column}
 		<th>{column.label}</th>
