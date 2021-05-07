@@ -1,25 +1,21 @@
 <script>
 import { onMount } from 'svelte';
 import Search from './search.js';
+import dataSource from './dzkh.js';
 let data = []
 let filteredData = []
 let searchQuery = "";
 let search = null;
 
-const searchColumns = ["bezeichnung","synonyme","beschreibung","begriffsklasse"];
-const labels = ["Bezeichnung","Synonyme","Beschreibung","Begriffsklasse"];
-const placeholders = labels.map(c => "🔍");
-//const placeholders = searchColumns.map(([firstLetter, ...restOfWord]) => "Suche in "+ firstLetter.toUpperCase() + restOfWord.join(''));
-
 let singleQueries = [];
-for(let i=0;i<searchColumns.length;i++) {singleQueries.push("");}
+for(let i=0;i<dataSource.columns.length;i++) {singleQueries.push("");}
 
 async function loadData()
 {
-	data = await d3.csv("data/glossary.csv");
-	data.sort((a, b) => a.bezeichnung > b.bezeichnung ? 1 : -1);
+	data = await d3.csv(dataSource.csvFile);
+	data.sort((a, b) => a[dataSource.sortKey] > b[dataSource.sortKey] ? 1 : -1);
 	filteredData = data;
-	search = new Search(data);
+	search = new Search(data,dataSource);
 }
 
 loadData();
@@ -30,13 +26,11 @@ if(data.length>0&&search)
 	filteredData = search.search(searchQuery);
 	search.highlight(searchQuery);
 
-	for(let i=0;i<searchColumns.length;i++)
+	for(const column of dataSource.columns)
 	{
-		const query = singleQueries[i];
-		if(!query) {continue;}
-		filteredData = filteredData.filter(item  => (item[searchColumns[i]]).toLowerCase().includes(query.toLowerCase()));
+		if(!column.query) {continue;}
+		filteredData = filteredData.filter(item  => (item[column.id]).toLowerCase().includes(column.query.toLowerCase()));
 	}
-
 }
 
 </script>
@@ -46,25 +40,22 @@ if(data.length>0&&search)
 	<!-- svelte-ignore a11y-autofocus -->
 	<input type="search" placeholder="🔍" style="width:80%;min-width:20em;" tabindex="0" autofocus bind:value={searchQuery}/>
 	<table style="width:100%" aria-label="Glossareinträge">
-		<th>Bezeichnung</th>
-		<th></th>
-		<!--<th>Synonyme</th>-->
-		<th>Beschreibung</th>
-		<!--<th>Quelle</th>-->
-		<th>Begriffsklasse</th>
+		{#each dataSource.columns as column}
+		<th>{column.label}</th>
+		{/each}
 		<tbody>
 			<tr>
-				<td><input type="search" class="singleSearch" bind:value={singleQueries[0]} placeholder={placeholders[0]} aria-label="Suchanfrage nach {labels[0]}"/></td>
-
-				<td></td>
-				<td><input type="search" class="singleSearch" bind:value={singleQueries[2]} placeholder={placeholders[2]} aria-label="Suchanfrage nach {labels[2]}"/></td>
-
-				<td><input type="search" class="singleSearch" list="begriffsklassen" bind:value={singleQueries[3]} placeholder={placeholders[3]} aria-label="Suchanfrage nach {labels[3]}"/></td>
-
+				{#each dataSource.columns as column}
+				<td><input type="search" class="singleSearch" bind:value={column.query} placeholder="🔍" aria-label="Suchanfrage nach {column.label}"/></td>
+				{/each}
 			</tr>
 
 			{#each filteredData as row}
 			<tr>
+				{#each dataSource.columns as column}
+				<td>{row[column.id]}</td>
+				{/each}
+				<!--
 				<td>{row.bezeichnung}{#if row.synonyme}
 					<br>
 					<i>
@@ -73,15 +64,15 @@ if(data.length>0&&search)
 					{/if}
 				</td>
 				<td>
+
 					{#if row.wikipedia}
-					<!--row.wikipedia.replace("https://de.wikipedia.org/wiki/","");}-->
 					<a style="display:block;" href="{row.wikipedia}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Wikipedia%27s_W_%28Linux_Libertine_mucked_with%29.svg" class="icon" alt="Wikipedia Article"></a>
 					{/if}
 				</td>
-				<!--<td>{row.synonyme}</td>-->
+
 				<td class="td-def">{row.beschreibung}</td>
-				<!--<td class="td-src">{row.quelle}</td>-->
 				<td>{row.begriffsklasse}</td>
+												-->
 			</tr>
 			{/each}
 		</tbody>
