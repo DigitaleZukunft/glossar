@@ -49,7 +49,7 @@ if(data.length>0&&search)
 		<tbody>
 			<tr>
 				{#each dataSource.columns as column}
-				<td><input type="search" class="singleSearch" bind:value={column.query} placeholder="🔍" aria-label="Suchanfrage nach {column.label}"/></td>
+				<td><input type="search" class="singleSearch" bind:value={column.query} placeholder="🔍" aria-label="Suchanfrage nach {column.label}" list={column.datalist?column.id:undefined}/></td>
 				{/each}
 			</tr>
 
@@ -67,17 +67,15 @@ if(data.length>0&&search)
 		</tbody>
 	</table>
 
-	<datalist id="begriffsklassen">
-		<option value="Aufgabe"/>
-		<option value="Anwendungssystem"/>
-		<option value="Datenobjekt"/>
-		<option value="Physisches Datenverarbeitungssystem"/>
-		<option value="Organisationseinheit"/>
-		<option value="Standard"/>
-		<option value="Technologisches Themengebiet"/>
-		<option value="Qualitätskriterium"/>
-		<option value="Sonstiges"/>
+	{#each dataSource.columns as column}
+	{#if column.datalist}
+	<datalist id="{column.id}">
+		{#each column.datalist as value}
+		<option value="{value}"/>
+		{/each}
 	</datalist>
+	{/if}
+	{/each}
 
 </main>
 

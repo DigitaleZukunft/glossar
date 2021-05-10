@@ -18,6 +18,7 @@ export default
 		{
 			id: "begriffsklasse",
 			label: "Begriffsklasse",
+			datalist: ["Aufgabe","Anwendungssystem","Datenobjekt","Physisches","Organisationseinheit","Standard","Technologisches","Qualitätskriterium","Sonstiges"],
 		},
 	],
 	computedColumns:[],
