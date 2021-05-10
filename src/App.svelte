@@ -1,6 +1,6 @@
 <script>
 import Search from './search.js';
-import dataSource from './snik.js';
+import dataSource from './hito-ontology.js';
 import debounce from 'lodash/debounce';
 let data = [];
 let filteredData = [];
@@ -55,13 +55,13 @@ if(data.length>0&&search)
 
 			{#each filteredData as row}
 			<tr>
-				{#each dataSource.columns as column}
+				{#each [...dataSource.columns,...dataSource.computedColumns] as column}
+				{#if column.html}
+				<td>{@html column.html(row)}</td>
+				{:else}
 				<td>{row[column.id]}</td>
+				{/if}
 				{/each}
-				{#each dataSource.computedColumns as cc}
-				<td>{@html cc.html(row)}</td>
-				{/each}
-
 			</tr>
 			{/each}
 		</tbody>

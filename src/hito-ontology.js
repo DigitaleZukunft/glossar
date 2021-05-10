@@ -1,0 +1,47 @@
+//SELECT ?uri
+//REPLACE(STR((?uri)),".*/","") as ?suffix
+/*
+STR(SAMPLE(?l)) as ?label
+REPLACE(STR(SAMPLE(?type)),".*#","") as ?type
+STR(?comment) as ?comment
+FROM <http://hitontology.eu/ontology>
+{
+  ?uri rdfs:label ?l;
+       rdf:type ?type.
+  {?uri a owl:Class.} UNION {?uri a owl:ObjectProperty.}
+
+  OPTIONAL {?uri rdfs:comment ?comment.}
+
+  FILTER(LANGMATCHES(LANG(?l),"en")||LANGMATCHES(LANG(?l),"de"))
+} ORDER BY ASC(?uri)
+*/
+
+export default
+{
+	title: "HITO-Ontology",
+	primaryKey: "uri",
+	sortKey: "label",
+	searchKeys: ["label","comment"],
+	csv: `https://hitontology.eu/sparql/?default-graph-uri=&query=SELECT+%3Furi%0D%0AREPLACE%28STR%28%28%3Furi%29%29%2C%22.*%2F%22%2C%22%22%29+as+%3Fsuffix%0D%0ASTR%28SAMPLE%28%3Fl%29%29+as+%3Flabel%0D%0AREPLACE%28STR%28SAMPLE%28%3Ftype%29%29%2C%22.*%23%22%2C%22%22%29+as+%3Ftype%0D%0ASTR%28%3Fcomment%29+as+%3Fcomment%0D%0AFROM+%3Chttp%3A%2F%2Fhitontology.eu%2Fontology%3E%0D%0A%7B%0D%0A++%3Furi+rdfs%3Alabel+%3Fl%3B%0D%0A+++++++rdf%3Atype+%3Ftype.%0D%0A++%7B%3Furi+a+owl%3AClass.%7D+UNION+%7B%3Furi+a+owl%3AObjectProperty.%7D%0D%0A%0D%0A++OPTIONAL+%7B%3Furi+rdfs%3Acomment+%3Fcomment.%7D%0D%0A%0D%0A++FILTER%28LANGMATCHES%28LANG%28%3Fl%29%2C%22en%22%29%7C%7CLANGMATCHES%28LANG%28%3Fl%29%2C%22de%22%29%29%0D%0A%7D+ORDER+BY+ASC%28%3Furi%29&format=csv`,
+	columns:
+	[
+		{
+			id: "label",
+			label: "Bezeichnung",
+		},
+		{
+			id: "comment",
+			label: "Kommentar",
+		},
+		{
+			id: "type",
+			label: "Typ",
+		},
+	],
+	computedColumns:
+	[
+		{
+			html: row => `<a href="${row.uri}" target="_blank">View</a>`,
+		},
+	],
+};
