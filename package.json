@@ -25,7 +25,7 @@
   },
   "type": "module",
   "dependencies": {
-    "d3": "^6.7.0",
+    "d3-fetch": "^2.0.0",
     "fuse.js": "^6.4.6",
     "lodash.debounce": "^4.0.8",
     "mark.js": "^8.11.1"

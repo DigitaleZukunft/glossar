@@ -2,7 +2,7 @@
 import Search from './../search.js';
 import dataSource from './../hito-ontology.js';
 //import debounce from 'lodash/debounce';
-import * as d3 from 'd3';
+import * as d3 from 'd3-fetch';
 let data = [];
 let filteredData = [];
 let search = null;
@@ -37,7 +37,6 @@ if(data.length>0&&search)
 		filteredData = filteredData.filter(item  => (item[column.id]).toLowerCase().includes(column.query.toLowerCase()));
 	}
 }
-
 </script>
 
 <main>
