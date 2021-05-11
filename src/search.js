@@ -1,3 +1,4 @@
+import Fuse from 'fuse.js'
 
 const options = {
 	minMatchCharLength: 2,

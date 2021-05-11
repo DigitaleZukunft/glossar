@@ -1,5 +1,6 @@
 {
 	"root": true,
+	"parser": "@typescript-eslint/parser",
 	"parserOptions":
 	{
 		"ecmaVersion":2020,
@@ -27,7 +28,7 @@
 		"plugin:import/errors",
 		"plugin:import/warnings"
 	],
-	"plugins": ["svelte3"],
+	"plugins": ["svelte3", "@typescript-eslint"],
 	"overrides": [
 		{
 			"files": ["*.svelte"],

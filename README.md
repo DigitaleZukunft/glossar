@@ -1,8 +1,7 @@
 # Glossary
 
-
 ## Develop
-The web application and this readme are based on the [Svelte](https://svelte.dev) project template at <https://github.com/sveltejs/template>.
+The web application and this readme are based on the [Svelte](https://svelte.dev) framework [SvelteKit](https://kit.svelte.dev/) template [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
 *Note that you will need to have [Node.js](https://nodejs.org) installed.*
 
