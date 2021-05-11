@@ -5,17 +5,16 @@
 	<meta name='viewport' content='width=device-width,initial-scale=1'>
 	<title>FFFDZKH-Glossar</title>
 	<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Ctext%20x='0'%20y='14'%3E🧾%3C/text%3E%3C/svg%3E" type="image/svg+xml" />
-	
+	<title>FAQ</title>
 
 		
 
 		<link rel="modulepreload" href="/glossar/_app/start-858ea42a.js">
 		<link rel="modulepreload" href="/glossar/_app/chunks/vendor-20ced20d.js">
 		<link rel="modulepreload" href="/glossar/_app/pages/__layout.svelte-a0234d39.js">
-		<link rel="modulepreload" href="/glossar/_app/pages/index.svelte-2ce32f93.js">
+		<link rel="modulepreload" href="/glossar/_app/pages/faq.svelte-6a774a55.js">
 		<link rel="stylesheet" href="/glossar/_app/assets/start-a8cd1609.css">
 		<link rel="stylesheet" href="/glossar/_app/assets/pages/__layout.svelte-9d96e07f.css">
-		<link rel="stylesheet" href="/glossar/_app/assets/pages/index.svelte-b204adc1.css">
 
 		<script type="module">
 			import { start } from "/glossar/_app/start-858ea42a.js";
@@ -31,11 +30,11 @@
 					error: null,
 					nodes: [
 						import("/glossar/_app/pages/__layout.svelte-a0234d39.js"),
-						import("/glossar/_app/pages/index.svelte-2ce32f93.js")
+						import("/glossar/_app/pages/faq.svelte-6a774a55.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
-						path: "/",
+						path: "/faq",
 						query: new URLSearchParams(""),
 						params: {}
 					}
@@ -57,17 +56,26 @@
 
 
 
-<main><main><h1>HITO-Ontology</h1>
-	
-	<input type="search" placeholder="🔍" style="width:80%;min-width:20em;" tabindex="0" autofocus>
-	<table style="width:100%" aria-label="Glossareinträge"><th>Bezeichnung</th><th>Suffix</th><th>Parent</th><th>Kommentar</th><th>Typ</th><th>Domain</th><th>Range</th>
-<tbody><tr><td><input type="search" class="singleSearch svelte-1u6qyk6" placeholder="🔍" aria-label="Suchanfrage nach Bezeichnung"></td><td><input type="search" class="singleSearch svelte-1u6qyk6" placeholder="🔍" aria-label="Suchanfrage nach Suffix"></td><td><input type="search" class="singleSearch svelte-1u6qyk6" placeholder="🔍" aria-label="Suchanfrage nach Parent"></td><td><input type="search" class="singleSearch svelte-1u6qyk6" placeholder="🔍" aria-label="Suchanfrage nach Kommentar"></td><td><input type="search" class="singleSearch svelte-1u6qyk6" placeholder="🔍" aria-label="Suchanfrage nach Typ"></td><td><input type="search" class="singleSearch svelte-1u6qyk6" placeholder="🔍" aria-label="Suchanfrage nach Domain"></td><td><input type="search" class="singleSearch svelte-1u6qyk6" placeholder="🔍" aria-label="Suchanfrage nach Range"></td></tr>
+<main>
 
-	</tbody></table>
-
-	
-
-</main></main>
+<main><h1>FAQ</h1>
+	<h2>Ich habe ein Problem oder einen Vorschlag</h2>
+	<p>Wunderbar! Bitte schauen Sie in unseren	<a href="https://github.com/DigitaleZukunft/glossar/issues/new" target="_blank">Issuetracker</a>, ob dazu schon eine Issue existiert.
+Wenn nicht, können Sie mit Ihrem GitHub-Account gerne eine Issue erstellen.
+Falls Sie noch keinen GitHub-Account haben, können sie diesen wenigen Minuten <a href="https://github.com/join" target="blank">hier anlegen</a>.
+Bitte keine Emails.
+	</p>
+	<h2>Wie funktioniert die Suche?</h2>
+	<p>Das obere Suchfeld sucht in allen Spalten gleichzeitig.
+Durch unscharfe Suche werden Tippfehler korrigiert.
+Standard ist die UND-Verknüpfung der Begriffe, &quot;A oder B&quot; kann durch &quot;A | B&quot; gesucht werden.
+Beispiele:
+	</p>
+	<ul><li>&quot;AkdividäTEN&quot; findet &quot;Aktivitäten&quot;</li>
+<li>&quot;daten von patienten&quot; findet &quot;Patientendatenmanagementsystem&quot;</li>
+<li>&quot;Planung Projekten&quot; findet &quot;Planung, Steuerung, Überwachung von IT-Projekten&quot;</li>
+<li>&quot;Planung | Projekte&quot; findet alle Einträge, die Planung oder Projekte beinhalten (oder beides)</li>
+<li>Noch ausgefeiltere Tricks <a href="https://fusejs.io/examples.html#extended-search" target="_blank">siehe FuseJS</a></li></ul></main></main>
 
 
 
