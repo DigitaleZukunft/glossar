@@ -1,3 +1,7 @@
+<script context="module">
+// workaround for
+</script>
+
 <script>
 	export let section;
 </script>
@@ -5,10 +9,10 @@
 <nav>
 
 	<ul>
-		<li><a sveltekit:prefetch href="/snik" class:selected={section === 'snik'}>SNIK</a></li>
-		<li><a sveltekit:prefetch href="/hito" class:selected={section === 'hito'}>HITO</a></li>
+		<li><a sveltekit:prefetch href="../snik" class:selected={section === 'snik'}>SNIK</a></li>
+		<li><a sveltekit:prefetch href="../hito" class:selected={section === 'hito'}>HITO</a></li>
 
-		<li class="right"><a href="/faq" class:selected={section === 'faq'}>FAQ</a></li>
+		<li class="right"><a href="../faq" class:selected={section === 'faq'}>FAQ</a></li>
 		<li class="right"><a href="https://github.com/DigitaleZukunft/glossar/issues/new" target="_blank">Issuetracker</a></li>
 	</ul>
 </nav>
