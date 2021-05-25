@@ -1,0 +1,1 @@
+import{S as s,i as e,s as t}from"../chunks/vendor-e79bebe1.js";function r(){return{redirect:"/snik",status:302}}export default class extends s{constructor(s){super(),e(this,s,null,null,t,{})}}export{r as load};
