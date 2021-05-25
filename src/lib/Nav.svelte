@@ -9,8 +9,8 @@
 <nav>
 
 	<ul>
-		<li><a sveltekit:prefetch href="../snik" class:selected={section === 'snik'}>SNIK</a></li>
-		<li><a sveltekit:prefetch href="../hito" class:selected={section === 'hito'}>HITO</a></li>
+		<li><a href="../snik" class:selected={section === 'snik'}>SNIK</a></li><!-- sveltekit:prefetch causes "Uncaught (in promise) Error: Attempted to prefetch a URL that does not belong to this app" --> 
+		<li><a href="../hito" class:selected={section === 'hito'}>HITO</a></li>
 
 		<li class="right"><a href="../faq" class:selected={section === 'faq'}>FAQ</a></li>
 		<li class="right"><a href="https://github.com/DigitaleZukunft/glossar/issues/new" target="_blank">Issuetracker</a></li>
