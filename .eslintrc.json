@@ -1,33 +1,24 @@
 {
 	"root": true,
 	"parser": "@typescript-eslint/parser",
-	"parserOptions":
-	{
-		"ecmaVersion":2020,
-		"sourceType":"module",
-		"ecmaFeatures":
-		{
+	"parserOptions": {
+		"ecmaVersion": 2020,
+		"sourceType": "module",
+		"ecmaFeatures": {
 			"impliedStrict": true
 		}
 	},
-	"env":
-	{
+	"env": {
 		"browser": true,
 		"es2020": true,
 		"node": false
 	},
-	"globals":
-	{
+	"globals": {
 		"Fuse": true,
 		"Mark": true,
 		"d3": true
 	},
-	"extends":
-	[
-		"eslint:recommended",
-		"plugin:import/errors",
-		"plugin:import/warnings"
-	],
+	"extends": ["eslint:recommended", "plugin:import/errors", "plugin:import/warnings", "prettier"],
 	"plugins": ["svelte3", "@typescript-eslint"],
 	"overrides": [
 		{
@@ -35,21 +26,14 @@
 			"processor": "svelte3/svelte3"
 		}
 	],
-	"rules":
-	{
-		"indent": ["error","tab"],
-		"semi": ["error","always"],
+	"rules": {
+		"semi": ["error", "always"],
 		"no-use-before-define": ["error"],
 		"no-shadow": ["warn"],
 		"no-console": ["off"],
 		"no-duplicate-imports": ["error"],
 		"dot-notation": ["error"],
 		"eqeqeq": ["error"],
-		"eol-last": ["error"],
-		"max-len": ["warn",240],
-		"padded-blocks": ["error","never"],
-		"space-in-parens": ["error"],
-		"brace-style": ["error","allman",{"allowSingleLine":true}],
 		"array-bracket-spacing": ["error"],
 		"no-unneeded-ternary": ["error"],
 		"no-unexpected-multiline": ["off"],
@@ -61,16 +45,14 @@
 		"no-unused-vars": ["warn"],
 		"prefer-const": ["warn"],
 		"eol-last": ["error"],
-		"padded-blocks": ["error","never"],
-		"comma-dangle": ["error","always-multiline"],
+		"padded-blocks": ["error", "never"],
 		"semi": ["error"],
-		"comma-style": ["error","last"],
+		"comma-style": ["error", "last"],
 		"class-methods-use-this": ["off"],
-		"no-trailing-spaces": "error",
-		"require-jsdoc": ["off",
+		"require-jsdoc": [
+			"off",
 			{
-				"require":
-				{
+				"require": {
 					"FunctionDeclaration": true,
 					"MethodDefinition": true,
 					"ClassDeclaration": false,
