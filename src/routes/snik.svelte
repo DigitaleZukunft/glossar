@@ -1,6 +1,10 @@
 <script>
- import snik from './../snik.js';
- import Glossary from './Glossary.svelte';
- </script>
+	import snik from '$lib/snik.js';
+	import Glossary from '$lib/Glossary.svelte';
+</script>
 
-<Glossary dataSource={snik}/>
+<svelte:head>
+	<title>SNIK-Glossar</title>
+</svelte:head>
+
+<Glossary dataSource={snik} />

@@ -1,6 +1,5 @@
-<script>
- import hito from './../hito-ontology.js';
- import Glossary from './Glossary.svelte';
- </script>
-
-<Glossary dataSource={hito}/>
+<script context="module">
+	export function load() {
+		return { redirect: '/snik', status: 302 };
+	}
+</script>

@@ -1,9 +1,12 @@
 <script>
-	//import Header from '$lib/Header/index.svelte';
+	import { page } from '$app/stores';
+	import Nav from '$lib/Nav.svelte';
 	import '../app.css';
+
+	$: section = $page.path.split('/')[1];
 </script>
 
-<!--<Header />-->
+<Nav {section}/>
 
 <main>
 	<slot />
