@@ -26,14 +26,14 @@ export default class Search {
 		this.fuse = new Fuse(this.data, options);
 	}
 
-	async highlight(query) {
+	/*async highlight(query) {
 		if (this.mark) {
 			await this.mark.unmark();
 		}
 		const tds = document.querySelectorAll('tr');
 		this.mark = new Mark(tds);
 		this.mark.mark(query);
-	}
+	}*/
 
 	search(query) {
 		if (!query || query.length < 2) {

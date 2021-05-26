@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -9,11 +10,11 @@ body {
 	margin: 0;
 	padding: 8px;
 	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
 
 a {
-	color: rgb(0,100,200);
+	color: rgb(0, 100, 200);
 	text-decoration: none;
 }
 
@@ -22,14 +23,17 @@ a:hover {
 }
 
 a:visited {
-	color: rgb(0,80,160);
+	color: rgb(0, 80, 160);
 }
 
 label {
 	display: block;
 }
 
-input, button, select, textarea {
+input,
+button,
+select,
+textarea {
 	font-family: inherit;
 	font-size: inherit;
 	-webkit-padding: 0.4em 0;
@@ -62,9 +66,14 @@ button:focus {
 	border-color: #666;
 }
 
-tr:nth-child(even) {background: #EEE}
+tr:nth-child(even) {
+	background: #eee;
+}
 
-td {padding-top:0.3em;padding-bottom:0.3em;}
+td {
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+}
 
 main {
 	text-align: center;
@@ -83,22 +92,28 @@ h1 {
 	main {
 		padding: 0;
 	}
-	body {padding: 0;}
-	h1 {font-size: 3em;}
-}
-
-@media (max-width: 80em) {
-	h1
-	{
-		font-size: 1.8em;
-		text-align:left;
-		margin-left:0.3em;
+	body {
+		padding: 0;
+	}
+	h1 {
+		font-size: 3em;
 	}
 }
 
-p,li {text-align: left;}
+@media (max-width: 80em) {
+	h1 {
+		font-size: 1.8em;
+		text-align: left;
+		margin-left: 0.3em;
+	}
+}
 
-a:focus, a:hover {
+p,
+li {
+	text-align: left;
+}
+
+a:focus,
+a:hover {
 	outline: 0.2em solid darkblue;
-
 }

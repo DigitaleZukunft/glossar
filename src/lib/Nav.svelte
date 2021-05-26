@@ -1,5 +1,5 @@
 <script context="module">
-// workaround for
+	// workaround for
 </script>
 
 <script>
@@ -7,9 +7,9 @@
 </script>
 
 <nav>
-
 	<ul>
-		<li><a href="../snik" class:selected={section === 'snik'}>SNIK</a></li><!-- sveltekit:prefetch causes "Uncaught (in promise) Error: Attempted to prefetch a URL that does not belong to this app" --> 
+		<li><a href="../snik" class:selected={section === 'snik'}>SNIK</a></li>
+		<!-- sveltekit:prefetch causes "Uncaught (in promise) Error: Attempted to prefetch a URL that does not belong to this app" -->
 		<li><a href="../hito" class:selected={section === 'hito'}>HITO</a></li>
 
 		<li class="right"><a href="../faq" class:selected={section === 'faq'}>FAQ</a></li>
@@ -25,18 +25,6 @@
 		color: var(--fg-light);
 		font-weight: 300;
 		padding: 0 1em;
-	}
-
-	.icon {
-		display: block;
-		width: 1em;
-		height: 1em;
-		float: left;
-		font-size: 2em;
-		position: relative;
-		top: 0.4em;
-		box-sizing: border-box;
-		margin: 0 0.5em 0 0;
 	}
 
 	ul {
@@ -84,10 +72,6 @@
 	}
 
 	@media (min-width: 400px) {
-		.icon {
-			margin: 0 0.5em 0 0;
-		}
-
 		li {
 			display: inline-block;
 		}

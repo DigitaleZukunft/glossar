@@ -6,7 +6,7 @@
 	$: section = $page.path.split('/')[1];
 </script>
 
-<Nav {section}/>
+<Nav {section} />
 
 <main>
 	<slot />
