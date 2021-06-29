@@ -1,6 +1,6 @@
 <script>
 	import Search from './search.js';
-	//import debounce from 'lodash/debounce';
+	import debounce from 'lodash.debounce';
 	export let dataSource;
 	import * as d3 from 'd3-fetch';
 	let data = [];
@@ -23,10 +23,12 @@
 
 	let debouncedSearchQuery = '';
 
-	const handleInput = (e) => {
+	/*const handleInput = (e) => {
 		debouncedSearchQuery = e.target.value;
-	};
-	//const handleInput = debounce(e=> {debouncedSearchQuery = e.target.value;}, 100);
+	};*/
+	const handleInput = debounce((e) => {
+		debouncedSearchQuery = e.target.value;
+	}, 100);
 
 	$: if (data.length > 0 && search) {
 		filteredData = search.search(debouncedSearchQuery);
