@@ -38,7 +38,8 @@
 			if (!column.query) {
 				continue;
 			}
-			filteredData = filteredData.filter((item) => item[column.id].toLowerCase().includes(column.query.toLowerCase()));
+
+			filteredData = filteredData.filter((item) => (column.html?column.html(item):item[column.id]).toLowerCase().includes(column.query.toLowerCase()));
 		}
 	}
 </script>
