@@ -1,37 +1,48 @@
 {
-  "name": "glossary",
-  "version": "0.2.0",
-  "private": true,
-  "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
-    "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-    "format": "prettier --write --plugin-search-dir=. ."
-  },
-  "devDependencies": {
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@sveltejs/adapter-static": "^1.0.0-next.9",
-    "@sveltejs/eslint-config": "github:sveltejs/eslint-config#v5.6.0",
-    "@sveltejs/kit": "next",
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
-    "eslint": "^7.27.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.3",
-    "eslint-plugin-svelte3": "^3.2.0",
-    "prettier": "~2.3.0",
-    "prettier-plugin-svelte": "^2.3.0",
-    "svelte": "^3.38.2",
-    "svelte-preprocess": "^4.7.3",
-    "tslib": "^2.2.0",
-    "typescript": "^4.2.4"
-  },
-  "type": "module",
-  "dependencies": {
-    "d3-fetch": "^2.0.0",
-    "fuse.js": "^6.4.6",
-    "lodash.debounce": "^4.0.8",
-    "mark.js": "^8.11.1"
-  }
+	"name": "glossary",
+	"version": "0.2.0",
+	"private": true,
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"preview": "svelte-kit preview",
+		"lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+		"format": "prettier --write --plugin-search-dir=. .",
+		"prepare": "husky install"
+	},
+	"devDependencies": {
+		"@rollup/plugin-node-resolve": "^13.0.0",
+		"@sveltejs/adapter-static": "^1.0.0-next.9",
+		"@sveltejs/eslint-config": "github:sveltejs/eslint-config#v5.6.0",
+		"@sveltejs/kit": "next",
+		"@typescript-eslint/eslint-plugin": "^4.25.0",
+		"@typescript-eslint/parser": "^4.25.0",
+		"eslint": "^7.27.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-import": "^2.23.3",
+		"eslint-plugin-svelte3": "^3.2.0",
+		"husky": "^6.0.0",
+		"lint-staged": "^11.0.0",
+		"prettier": "~2.3.0",
+		"prettier-plugin-svelte": "^2.3.0",
+		"svelte": "^3.38.2",
+		"svelte-preprocess": "^4.7.3",
+		"tslib": "^2.2.0",
+		"typescript": "^4.2.4"
+	},
+	"type": "module",
+	"dependencies": {
+		"d3-fetch": "^2.0.0",
+		"fuse.js": "^6.4.6",
+		"lodash.debounce": "^4.0.8",
+		"mark.js": "^8.11.1"
+	},
+	"lint-staged": {
+		"*.{js,jsx,svelte}": [
+			"prettier --write"
+		],
+		"*.{html,css,less,ejs,json}": [
+			"prettier --write"
+		]
+	}
 }

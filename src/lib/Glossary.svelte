@@ -29,17 +29,16 @@
 	const handleInput = debounce((e) => {
 		debouncedSearchQuery = e.target.value;
 	}, 100);
-
 	$: if (data.length > 0 && search) {
-		filteredData = search.search(debouncedSearchQuery);
-		//search.highlight(debouncedSearchQuery);
-
+		filteredData = search.search(debouncedSearchQuery); //search.highlight(debouncedSearchQuery);
 		for (const column of dataSource.columns) {
 			if (!column.query) {
 				continue;
 			}
 
-			filteredData = filteredData.filter((item) => (column.html?column.html(item):item[column.id]).toLowerCase().includes(column.query.toLowerCase()));
+			filteredData = filteredData.filter((item) =>
+				(column.html ? column.html(item) : item[column.id]).toLowerCase().includes(column.query.toLowerCase())
+			);
 		}
 	}
 </script>
